@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="icon" href="assets/images/simasautologo.png" type="image/png" />
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/styles.css" rel="stylesheet" />
+    <title>Simas Auto - Home</title>
+  </head>
+
+  <body>
+    <div id="navbar"></div>
+
+    <!-- Container de Toast -->
+    <div
+      class="toast-container"
+      aria-live="polite"
+      aria-atomic="true"
+      style="position: fixed; top: 94px; min-height: 200px"
+    >
+      <!-- Toast específica -->
+      <div
+        id="myToast"
+        class="toast"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+        data-bs-delay="20000"
+      >
+        <div class="toast-header">
+          <img
+            src="assets/images/simasautologo.png"
+            class="rounded mr-2"
+            style="height: 20px"
+            alt="..."
+          />
+          <strong class="mr-auto">Vendedor</strong>
+          <small class="text-muted">Agora mesmo</small>
+          <button
+            type="button"
+            class="ml-2 mb-1 close"
+            data-bs-dismiss="toast"
+            aria-label="Fechar"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="toast-body">
+          Em breve teremos mais informações do veículo
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid mb-4 pt-5" style="margin-top: 94px">
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Promoções de motos!</strong> Busque modelos de motos em promoção
+        na loja.
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Início</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Veículos</li>
+        </ol>
+      </nav>
+
+      <div class="row mb-5">
+        <div class="col col-lg-4 col-md-6 col-sm-12">
+          <div class="card">
+            <div class="card-body">
+              <form>
+                <div class="form-group">
+                  <label for="nomeDoModelo">Modelo</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="nomeDoModelo"
+                    aria-describedby="modeloHelp"
+                  />
+                  <small id="modeloHelp" class="form-text text-muted"
+                    >Insira o nome do modelo que deseja buscar</small
+                  >
+                </div>
+                <div class="form-group">
+                  <label for="nomeDaMontadora">Fabricante</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="nomeDaMontadora"
+                    aria-describedby="fabricanteHelp"
+                  />
+                  <small id="fabricanteHelp" class="form-text text-muted"
+                    >Insira o nome da fábricante que deseja buscar</small
+                  >
+                </div>
+
+                <div class="form-group">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      name="inlineRadioOptions"
+                      type="radio"
+                      id="carro"
+                      value="1"
+                    />
+                    <label class="form-check-label" for="carro">Carros</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      name="inlineRadioOptions"
+                      type="radio"
+                      id="moto"
+                      value="2"
+                    />
+                    <label class="form-check-label" for="moto">Motos</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      name="inlineRadioOptions"
+                      type="radio"
+                      id="ambos"
+                      value="3"
+                    />
+                    <label class="form-check-label" for="ambos">Ambos</label>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Buscar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col col-lg-8 col-md-6 col-sm-12">
+          <strong>20 veículos encontrados</strong>
+          <nav aria-label="Navegação dos resultados da busca de veículos">
+            <ul class="pagination">
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true"
+                  >Anterior</a
+                >
+              </li>
+              <li class="page-item active" aria-current="page">
+                <a class="page-link" href="#"
+                  >1 <span class="sr-only">(current)</span></a
+                >
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">2</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">Próximo</a>
+              </li>
+            </ul>
+          </nav>
+          <div class="row">
+            <!-- Card 2 -->
+            <div
+              class="col col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3 justify-content-center"
+            >
+              <div class="card card-height">
+                <img
+                  src="assets/images/fotos-em-breve.png"
+                  class="card-img-top"
+                  alt="temporário"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Kaneda's Bike <small class="float-right text-muted">Moto</small></h5>
+                  <p class="card-text card-text-custom">
+                    ¥12.500.000. <b class="float-right">Ano: 2019</b>
+                  </p>
+                  <a href="#" class="btnShowToast btn btn-primary">Detalhes</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div
+              class="col col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3 justify-content-center"
+            >
+              <div class="card card-height">
+                <img
+                  src="assets/images/fotos-em-breve.png"
+                  class="card-img-top"
+                  alt="temporário"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Regalia <small class="float-right text-muted">Carro</small></h5>
+                  <p class="card-text card-text-custom">
+                    2.600.000
+                    Gil. <b class="float-right">Ano: 756</b>
+                  </p>
+                  <a href="#" class="btnShowToast btn btn-primary">Detalhes</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div
+              class="col col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3 justify-content-center"
+            >
+              <div class="card card-height">
+                <img
+                  src="assets/images/fotos-em-breve.png"
+                  class="card-img-top"
+                  alt="temporário"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Light Cycle <small class="float-right text-muted">Moto</small></h5>
+                  <p class="card-text card-text-custom">
+                    1.500.000 Bits. <b class="float-right">Ano: 1980</b>
+                  </p>
+                  <a href="#" class="btnShowToast btn btn-primary">Detalhes</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div
+              class="col col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3 justify-content-center"
+            >
+              <div class="card card-height">
+                <img
+                  src="assets/images/fotos-em-breve.png"
+                  class="card-img-top"
+                  alt="temporário"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">DeLorean <small class="float-right text-muted">Carro</small></h5>
+                  <p class="card-text card-text-custom">
+                    U$5.500.000. <b class="float-right">Ano: 1985</b>
+                  </p>
+                  <a href="#" class="btnShowToast btn btn-primary">Detalhes</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div
+              class="col col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3 justify-content-center"
+            >
+              <div class="card card-height">
+                <img
+                  src="assets/images/fotos-em-breve.png"
+                  class="card-img-top"
+                  alt="temporário"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Ghost Rider's Bike <small class="float-right text-muted">Moto</small></h5>
+                  <p class="card-text card-text-custom">
+                    3.200.000
+                    Almas. <b class="float-right">Ano: 666</b>
+                  </p>
+                  <a href="#" class="btnShowToast btn btn-primary">Detalhes</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 7 -->
+            <div
+              class="col col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3 justify-content-center"
+            >
+              <div class="card card-height">
+                <img
+                  src="assets/images/fotos-em-breve.png"
+                  class="card-img-top"
+                  alt="temporário"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Trinity's Ducati <small class="float-right text-muted">Moto</small></h5>
+                  <p class="card-text card-text-custom">
+                    800.000 Bits. <b class="float-right">Ano: 1999</b>
+                  </p>
+                  <a href="#" class="btnShowToast btn btn-primary">Detalhes</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 8 -->
+            <div
+              class="col col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3 justify-content-center"
+            >
+              <div class="card card-height">
+                <img
+                  src="assets/images/fotos-em-breve.png"
+                  class="card-img-top"
+                  alt="temporário"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Mach 5 <small class="float-right text-muted">Carro</small></h5>
+                  <p class="card-text card-text-custom">
+                    ¥2.000.000. <b class="float-right">Ano: 1960</b>
+                  </p>
+                  <a href="#" class="btnShowToast btn btn-primary">Detalhes</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 9 -->
+            <div
+              class="col col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3 justify-content-center"
+            >
+              <div class="card card-height">
+                <img
+                  src="assets/images/fotos-em-breve.png"
+                  class="card-img-top"
+                  alt="temporário"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Ecto-1 <small class="float-right text-muted">Carro</small></h5>
+                  <p class="card-text card-text-custom">
+                    700.000 Ectoplasmas. <b class="float-right">Ano: 1959</b>
+                  </p>
+                  <a href="#" class="btnShowToast btn btn-primary">Detalhes</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 10 -->
+            <!-- <div
+              class="col col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3 justify-content-center"
+            >
+              <div class="card card-height">
+                <img
+                  src="assets/images/fotos-em-breve.png"
+                  class="card-img-top"
+                  alt="temporário"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Yamaha VMAX</h5>
+                  <p class="card-text card-text-custom">
+                    Poder e estilo em duas rodas. Preço: R$130.000.
+                  </p>
+                  <a href="#" class="btnShowToast btn btn-primary">Detalhes</a>
+                </div>
+              </div>
+            </div> -->
+
+            <!-- Card 11 -->
+            <!-- <div
+              class="col col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3 justify-content-center"
+            >
+              <div class="card card-height">
+                <img
+                  src="assets/images/fotos-em-breve.png"
+                  class="card-img-top"
+                  alt="temporário"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Optimus Prime</h5>
+                  <p class="card-text card-text-custom">
+                    O líder dos Autobots, pronto para qualquer aventura. Preço:
+                    10.000.000 Cubos.
+                  </p>
+                  <a href="#" class="btnShowToast btn btn-primary">Detalhes</a>
+                </div>
+              </div>
+            </div> -->
+
+            <!-- Card 12 -->
+            <!-- <div
+              class="col col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3 justify-content-center"
+            >
+              <div class="card card-height">
+                <img
+                  src="assets/images/fotos-em-breve.png"
+                  class="card-img-top"
+                  alt="temporário"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Herbie</h5>
+                  <p class="card-text card-text-custom">
+                    O icônico Fusca com vida própria. Preço: ?.
+                  </p>
+                  <a href="#" class="btnShowToast btn btn-primary">Detalhes</a>
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="footer"></div>
+
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/navbarEfootter.js"></script>
+
+    <script>
+      Array.from(document.getElementsByClassName("btnShowToast")).forEach(
+        (element) => {
+          element.addEventListener("click", function () {
+            // Seleciona a toast pelo ID
+            const myToast = new bootstrap.Toast(
+              document.getElementById("myToast")
+            );
+
+            // Exibe a toast
+            myToast.show();
+          });
+        }
+      );
+    </script>
+  </body>
+</html>
