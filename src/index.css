@@ -1,0 +1,52 @@
+.custom-divider {
+  border-left: 2px solid #ccc; /* Cria uma linha vertical */
+  height: 40px; /* Ajuste a altura como preferir */
+  margin: 0 15px; /* Adiciona espaçamento ao redor do divisor */
+}
+.cropped-image {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+  }
+  
+  @media (max-width: 768px) {
+    .cropped-image {
+      height: 400px;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+
+.custom-bg-opacity-50 {
+  background-color: rgba(0, 0, 0, 0.5); /* Preto com 50% de transparência */
+  border-radius: 1rem; /* Bordas arredondadas */
+  padding: 1rem;
+}
+
+.custom-control-icon {
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 50px;
+  border-radius: 10%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-clip: border-box;
+}
+
+.breadcrumb {
+  background-color: #e7e7e7 !important; /* Cor padrão do Bootstrap 4 */
+  padding: 8px 15px; /* Ajuste de espaçamento */
+  border-radius: 5px; /* Bordas arredondadas */
+}
+
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "/";                    /* separador padrão */
+  padding: 0 0.5rem;               /* espaçamento ao redor do separador */
+  color: #6c757d;                  /* cor do separador */
+}
+
+
+* {
+  box-sizing: border-box;
+}
