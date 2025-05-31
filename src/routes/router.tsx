@@ -7,31 +7,37 @@ import ContatoPage from "../pages/ContatoPage";
 import VeiculosPage from "../pages/VeiculosPage";
 import VeiculoPage from "../pages/VeiculoPage";
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <Layout />,
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          path: "",
+          element: <HomePage />,
+        },
+        {
+          path: "quem-somos",
+          element: <QuemSomosPage />,
+        },
+        {
+          path: "contato",
+          element: <ContatoPage />,
+        },
+        {
+          path: "veiculos",
+          element: <VeiculosPage />,
+        },
+        { path: "veiculos/:id", element: <VeiculoPage /> },
+        { path: "veiculos/codigo/:codigo", element: <VeiculoPage /> },
+      ],
+    },
+  ],
+
   {
-    path: "/",
-    element: <Layout />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: "",
-        element: <HomePage />,
-      },
-      {
-        path: "quem-somos",
-        element: <QuemSomosPage />,
-      },
-      {
-        path: "contato",
-        element: <ContatoPage />,
-      },
-      {
-        path: "veiculos",
-        element: <VeiculosPage />,
-      },
-      { path: "veiculos/:id", element: <VeiculoPage /> },
-      { path: "veiculos/codigo/:codigo", element: <VeiculoPage /> },
-    ],
-  },
-]);
+    basename: import.meta.env.BASE_URL,
+  }
+);
 export default router;

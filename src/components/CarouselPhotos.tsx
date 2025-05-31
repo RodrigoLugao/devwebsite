@@ -41,7 +41,7 @@ const CarouselPhotos = ({ imagens }: CarouselProps) => {
               {grupo.map((imagem, i) => (
                 <img
                   key={i}
-                  src={imagem.startsWith("http")? imagem : "/" + imagem}
+                  src={imagem.startsWith("http")? imagem : `${import.meta.env.BASE_URL}${imagem}`}
                   className="d-block col-4"
                   alt={`Imagem ${i + 1}`}
                   style={{maxHeight: "380px" ,objectFit: "cover", aspectRatio: "1 / 1" }}

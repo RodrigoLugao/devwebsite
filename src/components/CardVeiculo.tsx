@@ -22,7 +22,7 @@ const CardVeiculo = ({ veiculo, completo = false }: Props) => {
   return (
     <div className="card h-100">
       <img
-        src={veiculo.imagem}
+        src={`${import.meta.env.BASE_URL}${veiculo.imagem}`}
         className="card-img-top"
         alt={veiculo.modelo.nome}
         onError={handleImageError}

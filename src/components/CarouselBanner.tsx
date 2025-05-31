@@ -35,7 +35,7 @@ const CarouselBanner = ({ banners }: CarouselProps) => {
           >
             <NavLink to={banner.link}>
               <img
-                src={banner.imagem}
+                src={`${import.meta.env.BASE_URL}${banner.imagem}`}
                 className="d-block w-100 cropped-image"
                 alt={banner.titulo}
               />
