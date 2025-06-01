@@ -5,7 +5,7 @@ export const banners: Banner[] = [
     titulo: "Super Máquina por US$ 7.000.000",
     descricao:
       "K.I.T.T.: tecnologia avançada, estilo futurista e pronto para grandes aventuras sobre rodas.",
-    link: "/veiculos/2",
+    link: "/veiculos/codigo/KITT82",
     imagem: "imagem-carrossel-supermaquina.jpg",
   },
   {

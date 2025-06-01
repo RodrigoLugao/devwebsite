@@ -199,7 +199,7 @@ export const veiculos: Veiculo[] = [
     },
     kmsRodados: 55000,
     codigo: "KITT82",
-    imagem: "fotos-em-breve.png",
+    imagem: "supermaquina/KITT.jpg",
     preco: 1500000
   },
 
