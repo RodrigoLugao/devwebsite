@@ -36,7 +36,7 @@ const saveCarrinhoToLocalStorage = (carrinho: PecaCarrinho[]) => {
   }
 };
 
-export const useCarrinhoStore = create<CarrinhoState>((set, get) => ({
+export const useCarrinhoStore = create<CarrinhoState>((set, _) => ({
   itens: loadCarrinhoFromLocalStorage(), 
 
   adicionarItem: (pecaId: number) => {
