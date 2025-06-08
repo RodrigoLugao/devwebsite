@@ -3,5 +3,6 @@ interface Banner {
     descricao: string;
     link: string;
     imagem: string;
+    id?: number;
 }
 export default Banner;

@@ -1,7 +1,8 @@
-import { NavLink, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import veiculos from "../util/Veiculos";
 import CarouselPhotos from "../components/CarouselPhotos";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 const VeiculoPage = () => {
   const { id, codigo } = useParams();
@@ -34,19 +35,7 @@ const VeiculoPage = () => {
         <CarouselPhotos imagens={photos} />
       </div>
       <div className="container mb-4">
-        <nav aria-label="breadcrumb">
-          <ol className="breadcrumb p-2 rounded">
-            <li className="breadcrumb-item">
-              <NavLink to="/">Início</NavLink>
-            </li>
-            <li className="breadcrumb-item">
-              <NavLink to="/veiculos">Veículos</NavLink>
-            </li>
-            <li className="breadcrumb-item active" aria-current="page">
-              {veiculo.modelo.nome}
-            </li>
-          </ol>
-        </nav>
+        <Breadcrumbs anteriores={[{nome: "Início", link:"/"}, {nome: "Veículos", link:"/veiculos"}]} atual={veiculo.modelo.nome}></Breadcrumbs>
         <p className="mb-5 h3">
           {veiculo.modelo.fabricante}{" "}
           <span style={{ color: "red" }}>{veiculo.modelo.nome}</span>
@@ -87,6 +76,12 @@ const VeiculoPage = () => {
               <b>Km</b>
             </p>
             <p>{veiculo.kmsRodados}</p>
+          </div>
+          <div className="col">
+            <p className="mb-0">
+              <b>Cor</b>
+            </p>
+            <p>{veiculo.cor}</p>
           </div>
         </div>
         <strong>Informações do Veículo:</strong>

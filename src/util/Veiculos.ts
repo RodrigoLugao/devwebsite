@@ -3,6 +3,7 @@ import Veiculo from "../interfaces/Veiculo";
 
 export const veiculos: Veiculo[] = [
   {
+    vendido: false,
     descricao: "O carro do Batman. Perfeito para lutar contra o crime.",
     id: 1,
     modelo: {
@@ -15,14 +16,17 @@ export const veiculos: Veiculo[] = [
       qtdEstoque: 1,
       combustivel: "Gasolina",
       cambio: "Automático",
-      motor: "V8"
+      motor: "V8",
     },
     kmsRodados: 60000,
     codigo: "BATMO001",
-    imagem: "https://m.media-amazon.com/images/I/61IsZo-irFL._AC_UF894,1000_QL80_.jpg",
-    preco: 15000000
+    imagem:
+      "https://m.media-amazon.com/images/I/61IsZo-irFL._AC_UF894,1000_QL80_.jpg",
+    preco: 15000000,
+    cor: "Preto Fosco",
   },
   {
+    vendido: false,
     descricao: "Luxo e sofisticação em um veículo de reis.",
     id: 2,
     modelo: {
@@ -35,14 +39,17 @@ export const veiculos: Veiculo[] = [
       qtdEstoque: 1,
       combustivel: "Gasolina",
       cambio: "Automático",
-      motor: "V12"
+      motor: "V12",
     },
     kmsRodados: 20000,
     codigo: "FFX001",
-    imagem: "https://cache-na.finalfantasy.com/uploads/content/file/2021/11/24/13834/211125_ddoff_1.png",
-    preco: 2600000
+    imagem:
+      "https://cache-na.finalfantasy.com/uploads/content/file/2021/11/24/13834/211125_ddoff_1.png",
+    preco: 2600000,
+    cor: "Preto com detalhes em prata",
   },
   {
+    vendido: false,
     descricao: "De Volta para o Futuro com esse clássico.",
     id: 3,
     modelo: {
@@ -55,14 +62,16 @@ export const veiculos: Veiculo[] = [
       qtdEstoque: 1,
       combustivel: "Fluxo de Energia",
       cambio: "Manual",
-      motor: "Elétrico 1.21GW"
+      motor: "Elétrico 1.21GW",
     },
     kmsRodados: 88888,
     codigo: "DMC1981",
     imagem: "delorean.jpg",
-    preco: 1000000
+    preco: 1000000,
+    cor: "Prata Metálico",
   },
   {
+    vendido: false,
     descricao: "O clássico Muscle Car do filme Velozes e Furiosos.",
     id: 4,
     modelo: {
@@ -75,14 +84,16 @@ export const veiculos: Veiculo[] = [
       qtdEstoque: 2,
       combustivel: "Gasolina",
       cambio: "Manual",
-      motor: "V8 HEMI"
+      motor: "V8 HEMI",
     },
     kmsRodados: 45000,
     codigo: "CHARGER70",
     imagem: "charger.jpg",
-    preco: 800000
+    preco: 800000,
+    cor: "Preto",
   },
   {
+    vendido: false,
     descricao: "O carro do James Bond, sinônimo de elegância e poder.",
     id: 5,
     modelo: {
@@ -95,14 +106,16 @@ export const veiculos: Veiculo[] = [
       qtdEstoque: 1,
       combustivel: "Gasolina",
       cambio: "Manual",
-      motor: "4.0L I6"
+      motor: "4.0L I6",
     },
     kmsRodados: 30000,
     codigo: "DB50064",
     imagem: "db5.jpg",
-    preco: 4000000
+    preco: 4000000,
+    cor: "Prata Clássico",
   },
   {
+    vendido: false,
     descricao: "A moto futurista de Tron Legacy.",
     id: 6,
     modelo: {
@@ -115,14 +128,16 @@ export const veiculos: Veiculo[] = [
       qtdEstoque: 1,
       combustivel: "Energia",
       cambio: "Automático",
-      motor: "Plasma"
+      motor: "Plasma",
     },
     kmsRodados: 0,
     codigo: "TRON001",
     imagem: "lightcycle.jpg",
-    preco: 5000000
+    preco: 5000000,
+    cor: "Azul Neon",
   },
   {
+    vendido: false,
     descricao: "A lenda dos muscle cars americanos.",
     id: 7,
     modelo: {
@@ -135,14 +150,16 @@ export const veiculos: Veiculo[] = [
       qtdEstoque: 2,
       combustivel: "Gasolina",
       cambio: "Manual",
-      motor: "V8 7.0L"
+      motor: "V8 7.0L",
     },
     kmsRodados: 60000,
     codigo: "MUST67",
     imagem: "fotos-em-breve.png",
-    preco: 900000
+    preco: 900000,
+    cor: "Azul Escuro",
   },
   {
+    vendido: false,
     descricao: "A icônica Ferrari do filme Curtindo a Vida Adoidado.",
     id: 8,
     modelo: {
@@ -155,14 +172,16 @@ export const veiculos: Veiculo[] = [
       qtdEstoque: 1,
       combustivel: "Gasolina",
       cambio: "Manual",
-      motor: "V12 3.0L"
+      motor: "V12 3.0L",
     },
     kmsRodados: 40000,
     codigo: "FERRARI61",
     imagem: "fotos-em-breve.png",
-    preco: 12000000
+    preco: 12000000,
+    cor: "Vermelho Ferrari",
   },
   {
+    vendido: false,
     descricao: "O carro do vilão Max Zorin, de 007.",
     id: 9,
     modelo: {
@@ -175,14 +194,16 @@ export const veiculos: Veiculo[] = [
       qtdEstoque: 1,
       combustivel: "Gasolina",
       cambio: "Automático",
-      motor: "V8 6.2L"
+      motor: "V8 6.2L",
     },
     kmsRodados: 50000,
     codigo: "ROLLS62",
     imagem: "fotos-em-breve.png",
-    preco: 7000000
+    preco: 7000000,
+    cor: "Prata Elegante",
   },
   {
+    vendido: true,
     descricao: "O carro da série K.I.T.T – Super Máquina.",
     id: 10,
     modelo: {
@@ -195,17 +216,16 @@ export const veiculos: Veiculo[] = [
       qtdEstoque: 1,
       combustivel: "Gasolina",
       cambio: "Automático",
-      motor: "V8 5.0L"
+      motor: "V8 5.0L",
     },
     kmsRodados: 55000,
     codigo: "KITT82",
     imagem: "supermaquina/KITT.jpg",
-    preco: 1500000
+    preco: 1500000,
+    cor: "Preto com detalhes vermelhos",
   },
-
-  // --- Novos veículos ---
-
   {
+    vendido: false,
     descricao: "Uma moto clássica, perfeita para aventuras urbanas.",
     id: 11,
     modelo: {
@@ -218,14 +238,16 @@ export const veiculos: Veiculo[] = [
       qtdEstoque: 3,
       combustivel: "Gasolina",
       cambio: "Manual",
-      motor: "883cc V-Twin"
+      motor: "883cc V-Twin",
     },
     kmsRodados: 5000,
     codigo: "HD88320",
     imagem: "fotos-em-breve.png",
-    preco: 55000
+    preco: 55000,
+    cor: "Preto Fosco",
   },
   {
+    vendido: false,
     descricao: "Performance extrema para os apaixonados por velocidade.",
     id: 12,
     modelo: {
@@ -238,14 +260,16 @@ export const veiculos: Veiculo[] = [
       qtdEstoque: 2,
       combustivel: "Gasolina",
       cambio: "Manual",
-      motor: "998cc Inline-4"
+      motor: "998cc Inline-4",
     },
     kmsRodados: 1000,
     codigo: "KAWAZX10R23",
     imagem: "fotos-em-breve.png",
-    preco: 95000
+    preco: 95000,
+    cor: "Verde Kawasaki",
   },
   {
+    vendido: false,
     descricao: "A lendária moto esportiva italiana.",
     id: 14,
     modelo: {
@@ -258,13 +282,16 @@ export const veiculos: Veiculo[] = [
       qtdEstoque: 1,
       combustivel: "Gasolina",
       cambio: "Manual",
-      motor: "1103cc V4"
+      motor: "1103cc V4",
     },
     kmsRodados: 300,
     codigo: "DUCAV423",
     imagem: "fotos-em-breve.png",
-    preco: 130000
+    preco: 130000,
+    cor: "Vermelho Ducati",
   },
+
+
 ];
 
 export default veiculos;

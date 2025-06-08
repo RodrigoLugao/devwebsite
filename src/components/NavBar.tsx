@@ -1,7 +1,10 @@
 import { NavLink } from "react-router-dom";
 import logo from "../assets/images/simasautologo.png";
+import { useCarrinhoStore } from "../store/carrinhoStore";
 
 const NavBar = () => {
+  const carrinhoItens = useCarrinhoStore((state) => state.itens);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top px-3">
       <NavLink className="navbar-brand" to="/">
@@ -32,6 +35,11 @@ const NavBar = () => {
               Veículos
             </NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/pecas">
+              Peças
+            </NavLink>
+          </li>
           <li className="nav-item dropdown">
             <button
               className="nav-link dropdown-toggle btn btn-link text-decoration-none"
@@ -50,19 +58,50 @@ const NavBar = () => {
               <NavLink className="dropdown-item" to="/revisao">
                 Revisão
               </NavLink>
-              <NavLink className="dropdown-item" to="/pecas">
-                Peças
+            </div>
+          </li>
+          <li className="nav-item dropdown">
+            <button
+              className="nav-link dropdown-toggle btn btn-link text-decoration-none"
+              id="navbarDropdown"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              type="button"
+            >
+              Sobre Nós
+            </button>
+            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+              <NavLink className="dropdown-item" to="/quem-somos">
+                Quem Somos
+              </NavLink>
+              <NavLink className="dropdown-item" to="/contato">
+                Contato
               </NavLink>
             </div>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/quem-somos">
-              Quem Somos
+            <NavLink className="nav-link" to="/carrinho">
+              Carrinho{" "}
+              {carrinhoItens !== null && carrinhoItens.length > 0 ? (
+                <span
+                  className="rounded-circle bg-white text-dark fw-bold d-inline-flex justify-content-center align-items-center"
+                  style={{ width: "20px", height: "20px", fontSize: "0.75em" }}
+                >
+                  {carrinhoItens.length}
+                </span>
+              ) : (
+                ""
+              )}
             </NavLink>
           </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/contato">
-              Contato
+          <li className="nav-item d-md-none mt-3">
+            <NavLink
+              className="btn btn-outline-primary"
+              to="/login"
+              style={{ minWidth: "100px" }}
+            >
+              Login
             </NavLink>
           </li>
         </ul>
@@ -73,13 +112,18 @@ const NavBar = () => {
             <input
               className="form-control me-2"
               type="search"
-              placeholder="Procure veículos"
+              placeholder="Busque veículos"
               aria-label="Search"
             />
             <NavLink className="btn btn-outline-success" to="/busca">
               Buscar
             </NavLink>
           </form>
+        </div>
+        <div className="d-none d-md-block border-start border-secondary ps-3">
+          <NavLink className="btn btn-outline-primary" to="/login">
+            Login
+          </NavLink>
         </div>
       </div>
     </nav>

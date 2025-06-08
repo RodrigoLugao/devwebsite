@@ -59,7 +59,7 @@ const CardVeiculo = ({ veiculo, completo = false }: Props) => {
 
       <div className="card-footer bg-transparent border-0 d-flex justify-content-center">
         <NavLink className="btn btn-primary btn-sm" to={"/veiculos/codigo/" + veiculo.codigo}>
-          Mais Detalhes
+          Mais Informações
         </NavLink>
       </div>
     </div>

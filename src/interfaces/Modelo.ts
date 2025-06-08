@@ -4,7 +4,7 @@ export enum Tipo{
 }
 
 interface Modelo {
-    id: number;
+    id?: number;
     imagem: string;
     nome: string;
     fabricante: string;

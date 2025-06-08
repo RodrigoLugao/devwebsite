@@ -1,7 +1,7 @@
 import Modelo from "./Modelo";
 
 interface Veiculo{
-    id: number;
+    id?: number;
     modelo: Modelo;
     kmsRodados: number;
     descricao: string;
@@ -9,6 +9,7 @@ interface Veiculo{
     imagem: string;
     preco: number;
     cor?: string;
+    vendido: boolean;
     informacoes?: string;
 }
 export default Veiculo;

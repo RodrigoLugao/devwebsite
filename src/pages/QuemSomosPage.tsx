@@ -1,23 +1,14 @@
-import { NavLink } from "react-router-dom";
 import logo from "../assets/images/simasautologofull.png";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 const QuemSomosPage = () => {
   return (
     <div className="container mb-4 pt-5" style={{ marginTop: "94px" }}>
-      <nav aria-label="breadcrumb">
-        <ol className="breadcrumb p-2 rounded">
-          <li className="breadcrumb-item">
-            <NavLink to="/">Início</NavLink>
-          </li>
-          <li className="breadcrumb-item active" aria-current="page">
-            Quem Somos
-          </li>
-        </ol>
-      </nav>
+      <Breadcrumbs anteriores={[{nome: "Início", link:"/"}]} atual={"Quem Somos"}></Breadcrumbs>
 
-      <h3 className="mb-4">Quem Somos</h3>
+      <p className="mb-4 h3">Quem Somos</p>
       <hr />
-      <h4>Simas Auto: Seu parceiro na estrada para o futuro.</h4>
+      <p className="h4">Simas Auto: Seu parceiro na estrada para o futuro.</p>
 
       <div className="mt-5 mb-5">
         <img

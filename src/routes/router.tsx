@@ -6,6 +6,9 @@ import QuemSomosPage from "../pages/QuemSomosPage";
 import ContatoPage from "../pages/ContatoPage";
 import VeiculosPage from "../pages/VeiculosPage";
 import VeiculoPage from "../pages/VeiculoPage";
+import PecasPage from "../pages/PecasPage";
+import CarrinhoPage from "../pages/CarrinhoPage";
+import ListaPecas from "../components/ListaPecas";
 
 const router = createBrowserRouter(
   [
@@ -32,6 +35,14 @@ const router = createBrowserRouter(
         },
         { path: "veiculos/:id", element: <VeiculoPage /> },
         { path: "veiculos/codigo/:codigo", element: <VeiculoPage /> },
+        {
+          path: "pecas",
+          element: <PecasPage />,
+          children: [
+            { path: "categoria/:slugCategoria?", element: <ListaPecas /> },
+          ],
+        },
+        { path: "carrinho", element: <CarrinhoPage /> },
       ],
     },
   ],

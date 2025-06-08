@@ -3,6 +3,17 @@ interface CarouselProps {
 }
 
 const CarouselPhotos = ({ imagens }: CarouselProps) => {
+  const imagemPadrao = new URL(
+    "../assets/images/fotos-em-breve.png",
+    import.meta.url
+  ).href;
+
+  const handleImageError = (
+    event: React.SyntheticEvent<HTMLImageElement, Event>
+  ) => {
+    event.currentTarget.src = imagemPadrao;
+  };
+
   const gruposDeImagens = [];
 
   // Divide o array de imagens em grupos de até 3
@@ -44,6 +55,7 @@ const CarouselPhotos = ({ imagens }: CarouselProps) => {
                   src={imagem.startsWith("http")? imagem : `${import.meta.env.BASE_URL}${imagem}`}
                   className="d-block col-4"
                   alt={`Imagem ${i + 1}`}
+                  onError={handleImageError}
                   style={{maxHeight: "380px" ,objectFit: "cover", aspectRatio: "1 / 1" }}
                 />
               ))}

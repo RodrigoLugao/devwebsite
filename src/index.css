@@ -46,6 +46,11 @@
   color: #6c757d;                  /* cor do separador */
 }
 
+.card-categoria-peca:hover {
+  background-color: #bdc6ce;    
+  border-radius: 10%;
+}
+
 
 * {
   box-sizing: border-box;

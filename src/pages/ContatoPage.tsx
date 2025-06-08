@@ -1,21 +1,15 @@
-import { NavLink } from "react-router-dom";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 const ContatoPage = () => {
   return (
     <main className="container mb-4 pt-5" style={{ marginTop: "94px" }}>
-      <nav aria-label="breadcrumb">
-        <ol className="breadcrumb p-2 rounded">
-          <li className="breadcrumb-item">
-            <NavLink to="/">Início</NavLink>
-          </li>
-          <li className="breadcrumb-item active" aria-current="page">
-            Contato
-          </li>
-        </ol>
-      </nav>
+      <Breadcrumbs
+        anteriores={[{ nome: "Início", link: "/" }]}
+        atual={"Contato"}
+      ></Breadcrumbs>
 
       <header>
-        <h1 className="mb-4">Contato</h1>
+        <p className="mb-4 h3">Contato</p>
         <hr />
       </header>
 
@@ -52,23 +46,51 @@ const ContatoPage = () => {
             <div className="card-body">
               <form>
                 <div className="mb-3">
-                  <label htmlFor="nome" className="form-label">Nome</label>
-                  <input type="text" className="form-control" id="nome" name="nome" />
+                  <label htmlFor="nome" className="form-label">
+                    Nome
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="nome"
+                    name="nome"
+                  />
                 </div>
 
                 <div className="mb-3">
-                  <label htmlFor="telefone" className="form-label">Telefone</label>
-                  <input type="tel" className="form-control" id="telefone" name="telefone" />
+                  <label htmlFor="telefone" className="form-label">
+                    Telefone
+                  </label>
+                  <input
+                    type="tel"
+                    className="form-control"
+                    id="telefone"
+                    name="telefone"
+                  />
                 </div>
 
                 <div className="mb-3">
-                  <label htmlFor="email" className="form-label">Email</label>
-                  <input type="email" className="form-control" id="email" name="email" />
+                  <label htmlFor="email" className="form-label">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    id="email"
+                    name="email"
+                  />
                 </div>
 
                 <div className="mb-3">
-                  <label htmlFor="mensagem" className="form-label">Mensagem</label>
-                  <textarea className="form-control" id="mensagem" name="mensagem" rows={4}></textarea>
+                  <label htmlFor="mensagem" className="form-label">
+                    Mensagem
+                  </label>
+                  <textarea
+                    className="form-control"
+                    id="mensagem"
+                    name="mensagem"
+                    rows={4}
+                  ></textarea>
                 </div>
 
                 <button type="submit" className="btn btn-primary">
