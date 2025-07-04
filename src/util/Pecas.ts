@@ -1,4 +1,4 @@
-import Peca from "../interfaces/Peca";
+/* import Peca from "../interfaces/Peca";
 
 const pecas: Peca[] = [
   {
@@ -544,3 +544,4 @@ const pecas: Peca[] = [
 ];
 
 export default pecas;
+ */

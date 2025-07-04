@@ -1,6 +1,6 @@
 export enum Tipo{
-    CARRO = "Carro",
-    MOTO = "Moto"
+    CARRO = "CARRO",
+    MOTO = "MOTO"
 }
 
 interface Modelo {

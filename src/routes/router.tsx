@@ -9,6 +9,14 @@ import VeiculoPage from "../pages/VeiculoPage";
 import PecasPage from "../pages/PecasPage";
 import CarrinhoPage from "../pages/CarrinhoPage";
 import ListaPecas from "../components/ListaPecas";
+import LoginPage from "../pages/LoginPage";
+import PecasFavoritasPage from "../pages/PecasFavoritasPage";
+import AuthGuard from "../components/AuthGuard"; // Importe o AuthGuard
+import PecaPage from "../pages/PecaPage";
+import AdminGuard from "../components/AdminGuard";
+import EditarPecaPage from "../pages/EditarPecaPage";
+import CriarPecaPage from "../pages/CriarPecaPage";
+import CadastroUsuarioPage from "../pages/CadastroUsuarioPage";
 
 const router = createBrowserRouter(
   [
@@ -39,10 +47,29 @@ const router = createBrowserRouter(
           path: "pecas",
           element: <PecasPage />,
           children: [
+            { index: true, element: <ListaPecas /> },
             { path: "categoria/:slugCategoria?", element: <ListaPecas /> },
           ],
         },
+        { path: "pecas/:id", element: <PecaPage /> },
         { path: "carrinho", element: <CarrinhoPage /> },
+        { path: "login", element: <LoginPage /> },
+        { path: "cadastrar-usuario", element: <CadastroUsuarioPage /> },
+
+        // --- Rotas Protegidas ---
+        {
+          element: <AuthGuard />, 
+          children: [
+            { path: "pecas/favoritas", element: <PecasFavoritasPage /> },
+          ],
+        },
+        {
+          element: <AdminGuard />, 
+          children: [
+            { path: "pecas/:id/editar", element: <EditarPecaPage /> },
+            { path: "pecas/criar", element: <CriarPecaPage /> },
+          ],
+        },
       ],
     },
   ],
@@ -51,4 +78,5 @@ const router = createBrowserRouter(
     basename: import.meta.env.BASE_URL,
   }
 );
+
 export default router;

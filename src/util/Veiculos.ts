@@ -1,4 +1,4 @@
-import { Tipo } from "../interfaces/Modelo";
+/* import { Tipo } from "../interfaces/Modelo";
 import Veiculo from "../interfaces/Veiculo";
 
 export const veiculos: Veiculo[] = [
@@ -295,3 +295,4 @@ export const veiculos: Veiculo[] = [
 ];
 
 export default veiculos;
+ */

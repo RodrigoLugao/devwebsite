@@ -1,10 +1,10 @@
 import { create } from 'zustand';
+import { getGlobalQueryClient } from '../util/QueryClientUtils';
 
 export interface PecaCarrinho {
   idPeca: number;
   quantidade: number;
 }
-
 
 interface CarrinhoState {
   itens: PecaCarrinho[];
@@ -12,6 +12,9 @@ interface CarrinhoState {
   subtrairItem: (pecaId: number) => void;
   setQuantidade: (pecaId: number, qtd: number) => void;
   limparCarrinho: () => void;
+  removerPeca: (pecaId: number) => void;
+  hasItem: (pecaId: number) => boolean;
+  getQuantidade: (pecaId: number) => number;
 }
 
 const loadCarrinhoFromLocalStorage = (): PecaCarrinho[] => {
@@ -29,6 +32,12 @@ const loadCarrinhoFromLocalStorage = (): PecaCarrinho[] => {
 
 const saveCarrinhoToLocalStorage = (carrinho: PecaCarrinho[]) => {
   try {
+    const queryClient = getGlobalQueryClient();
+
+    queryClient.invalidateQueries({
+      queryKey: ["pecas", "carrinho"],
+    });
+
     const serializedCarrinho = JSON.stringify(carrinho);
     localStorage.setItem('carrinho', serializedCarrinho);
   } catch (error) {
@@ -36,8 +45,8 @@ const saveCarrinhoToLocalStorage = (carrinho: PecaCarrinho[]) => {
   }
 };
 
-export const useCarrinhoStore = create<CarrinhoState>((set, _) => ({
-  itens: loadCarrinhoFromLocalStorage(), 
+export const useCarrinhoStore = create<CarrinhoState>((set, get) => ({
+  itens: loadCarrinhoFromLocalStorage(),
 
   adicionarItem: (pecaId: number) => {
     set(carrinho => {
@@ -51,7 +60,7 @@ export const useCarrinhoStore = create<CarrinhoState>((set, _) => ({
       } else {
         novosItens = [...carrinho.itens, { idPeca: pecaId, quantidade: 1 }];
       }
-      saveCarrinhoToLocalStorage(novosItens); 
+      saveCarrinhoToLocalStorage(novosItens);
       return { itens: novosItens };
     });
   },
@@ -60,15 +69,15 @@ export const useCarrinhoStore = create<CarrinhoState>((set, _) => ({
     set(carrinho => {
       const novosItens = carrinho.itens
         .map(item => (item.idPeca === pecaId ? { ...item, quantidade: item.quantidade - 1 } : item))
-        .filter(item => item.quantidade > 0); 
-      
-      saveCarrinhoToLocalStorage(novosItens); 
+        .filter(item => item.quantidade > 0);
+
+      saveCarrinhoToLocalStorage(novosItens);
       return { itens: novosItens };
     });
   },
 
   setQuantidade: (pecaId: number, qtd: number) => {
-    set(carrinho => { 
+    set(carrinho => {
       let novosItens: PecaCarrinho[];
 
       const itemExistente = carrinho.itens.find(item => item.idPeca === pecaId);
@@ -76,12 +85,12 @@ export const useCarrinhoStore = create<CarrinhoState>((set, _) => ({
       if (itemExistente) {
         novosItens = carrinho.itens.map(item =>
           item.idPeca === pecaId ? { ...item, quantidade: qtd } : item
-        ).filter(item => item.quantidade > 0); 
+        ).filter(item => item.quantidade > 0);
       } else {
         if (qtd > 0) {
           novosItens = [...carrinho.itens, { idPeca: pecaId, quantidade: qtd }];
         } else {
-          novosItens = carrinho.itens; 
+          novosItens = carrinho.itens;
         }
       }
 
@@ -92,6 +101,22 @@ export const useCarrinhoStore = create<CarrinhoState>((set, _) => ({
 
   limparCarrinho: () => {
     set({ itens: [] });
-    saveCarrinhoToLocalStorage([]); 
+    saveCarrinhoToLocalStorage([]);
+  },
+
+  removerPeca: (pecaId: number) => {
+    set(carrinho => {
+      const novosItens = carrinho.itens.filter(item => item.idPeca !== pecaId);
+      saveCarrinhoToLocalStorage(novosItens); 
+      return { itens: novosItens };
+    });
+  },
+
+  hasItem: (pecaId: number) => {
+    return get().itens.some(item => item.idPeca === pecaId);
+  },
+  getQuantidade: (pecaId: number) => {
+    const item = get().itens.find(item => item.idPeca === pecaId);
+    return item ? item.quantidade : 0;
   },
 }));

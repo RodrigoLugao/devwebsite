@@ -1,4 +1,4 @@
-import Banner from "../interfaces/Banner";
+/* import Banner from "../interfaces/Banner";
 
 export const banners: Banner[] = [
   {
@@ -42,4 +42,4 @@ export const banners: Banner[] = [
     link: "/servicos",
     imagem: "imagem-carrossel-manutenção.png",
   },
-];
+]; */

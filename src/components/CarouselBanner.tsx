@@ -1,11 +1,52 @@
 import { NavLink } from "react-router-dom";
-import Banner from "../interfaces/Banner";
+import useRecuperarBannersComPaginacao from "../hooks/banners/useRecuperarBannersComPaginacao";
 
 interface CarouselProps {
-  banners: Banner[];
+  itensPorPagina?: number;
 }
 
-const CarouselBanner = ({ banners }: CarouselProps) => {
+const CarouselBanner = ({ itensPorPagina = 6 }: CarouselProps) => {
+  // Define 6 como padrão, mas permite sobrescrever
+  const {
+    data: pageBanners,
+    isPending: carregandoBanners,
+    error: errorBanners,
+  } = useRecuperarBannersComPaginacao({
+    itensPorPagina: itensPorPagina,
+    pagina: 0,
+    ordenarPor: "dataCadastro",
+    ordem: "DESC",
+  });
+
+  if (carregandoBanners) {
+    return (
+      <div className="text-center py-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Carregando banners...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (errorBanners) {
+    console.error("Erro ao carregar banners:", errorBanners);
+    return (
+      <div className="alert alert-danger text-center" role="alert">
+        Não foi possível carregar os banners.
+      </div>
+    );
+  }
+
+  const banners = pageBanners?.itens || [];
+
+  if (banners.length === 0) {
+    return (
+      <div className="alert alert-info text-center" role="alert">
+        Nenhum banner disponível.
+      </div>
+    );
+  }
+
   return (
     <div
       id="carouselHome"
@@ -30,7 +71,7 @@ const CarouselBanner = ({ banners }: CarouselProps) => {
       <div className="carousel-inner">
         {banners.map((banner, index) => (
           <div
-            key={index}
+            key={banner.id || index}
             className={`carousel-item ${index === 0 ? "active" : ""}`}
           >
             <NavLink to={banner.link}>

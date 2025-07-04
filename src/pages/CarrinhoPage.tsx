@@ -1,8 +1,8 @@
-import { useState } from "react";
-import TabelaDePecas from "../components/TabelaDePecasDoCarrinho";
+import { useState, useEffect } from "react";
+import TabelaDePecasDoCarrinho from "../components/TabelaDePecasDoCarrinho";
 import { useCarrinhoStore } from "../store/carrinhoStore";
 import Paginacao from "../components/Paginacao";
-import useRecuperarPecasPorIdsComPaginacao from "../hooks/useRecuperarPecasPorIdsComPaginacao";
+import useRecuperarPecasPorIdsComPaginacao from "../hooks/pecas/useRecuperarPecasPorIdsComPaginacao";
 import { Link } from "react-router-dom";
 
 const CarrinhoPage = () => {
@@ -10,7 +10,6 @@ const CarrinhoPage = () => {
   const pecasPorPagina = 12;
 
   const carrinhoItens = useCarrinhoStore((state) => state.itens);
-  const setQuantidadeAction = useCarrinhoStore((state) => state.setQuantidade);
   const limparCarrinhoAction = useCarrinhoStore(
     (state) => state.limparCarrinho
   );
@@ -19,43 +18,24 @@ const CarrinhoPage = () => {
 
   const {
     data: pagePecas,
-    isPending: carregandoProdutos, 
+    isPending: carregandoProdutos,
     error: errorProdutos,
-  } = useRecuperarPecasPorIdsComPaginacao(
-    idsDoCarrinho,
-    pecasPorPagina,
-    currentPage - 1
-  );
+  } = useRecuperarPecasPorIdsComPaginacao(idsDoCarrinho, {
+    itensPorPagina: pecasPorPagina,
+    pagina: currentPage - 1,
+  });
 
-  const totalPaginas = pagePecas ? pagePecas.totalPaginas : 0;
-  const pecasExibidas = pagePecas ? pagePecas.itens : [];
-  const totalItensNoCarrinhoFiltrados = pagePecas ? pagePecas.totalItens : 0;
+  const totalPaginas = pagePecas?.totalPaginas ?? 0;
+  const pecasExibidas = pagePecas?.itens ?? [];
+  const totalItensNoCarrinhoFiltrados = pagePecas?.totalItens ?? 0;
 
-  const handleRemocaoPeca = (pecaId: number) => {
-    const itemNoCarrinho = carrinhoItens.find((item) => item.idPeca === pecaId);
-    if (itemNoCarrinho) {
-      setQuantidadeAction(pecaId, itemNoCarrinho.quantidade - 1);
-      if (carrinhoItens.length === 1 && itemNoCarrinho.quantidade === 1) { 
-         setCurrentPage(1);
-      } else if (pecasExibidas.length === 1 && itemNoCarrinho.quantidade === 1 && currentPage > 1) {
-         setCurrentPage(prev => prev - 1);
-      }
+  useEffect(() => {
+    if (currentPage > totalPaginas && currentPage > 1) {
+      setCurrentPage(totalPaginas);
+    } else if (carrinhoItens.length === 0 && currentPage !== 1) {
+      setCurrentPage(1);
     }
-  };
-
-  const handleUpdateQuantidade = (pecaId: number, qtd: number) => {
-    const itemNoCarrinho = carrinhoItens.find((item) => item.idPeca === pecaId);
-    if (itemNoCarrinho) {
-      setQuantidadeAction(pecaId, qtd);
-      if (qtd === 0) {
-        if (carrinhoItens.length === 1 && itemNoCarrinho.quantidade === 1) {
-            setCurrentPage(1);
-        } else if (pecasExibidas.length === 1 && itemNoCarrinho.quantidade === 1 && currentPage > 1) {
-            setCurrentPage(prev => prev - 1);
-        }
-      }
-    }
-  };
+  }, [totalPaginas, currentPage, carrinhoItens.length]);
 
   if (errorProdutos) {
     return (
@@ -126,12 +106,19 @@ const CarrinhoPage = () => {
         />
       )}
 
-      <TabelaDePecas
-        pecas={pecasExibidas}
-        pecasDoCarrinho={carrinhoItens}
-        tratarRemocao={handleRemocaoPeca}
-        onUpdateQuantidade={handleUpdateQuantidade}
-      />
+      {pecasExibidas.length === 0 && totalItensNoCarrinhoFiltrados > 0 && !carregandoProdutos ? (
+        <div className="alert alert-warning text-center" role="alert">
+          Nenhum item para exibir na página atual. Por favor, ajuste a página.
+        </div>
+      ) : (
+        <TabelaDePecasDoCarrinho
+          pecas={pecasExibidas} 
+          showTotalPrice={true} 
+          showOnlyCartItems={true} 
+        >
+        </TabelaDePecasDoCarrinho>
+      )}
+
       <div className="d-flex mt-4 gap-3">
         <Link className="btn btn-secondary" to="/pecas">
           Voltar às Compras

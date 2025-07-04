@@ -9,9 +9,11 @@ import { RouterProvider } from 'react-router-dom';
 import router from './routes/router';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { setGlobalQueryClient } from './util/QueryClientUtils';
 
-// Criação do QueryClient
 const queryClient = new QueryClient();
+
+setGlobalQueryClient(queryClient);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

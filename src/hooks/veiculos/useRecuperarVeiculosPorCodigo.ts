@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import Veiculo from "../interfaces/Veiculo";
-import Page from "../interfaces/Page";
+import Veiculo from "../../interfaces/Veiculo";
+import Page from "../../interfaces/Page";
 
 const useRecuperarVeiculosPorCodigo = (codigo: string) => {
   const recuperarVeiculosPorCodigo = async (codigo: string) => {
@@ -15,7 +15,7 @@ const useRecuperarVeiculosPorCodigo = (codigo: string) => {
   };
 
   return useQuery({
-    queryKey: ["veiculos",  codigo],
+    queryKey: ["veiculos",  {codigo: codigo}],
     queryFn: () => recuperarVeiculosPorCodigo(codigo),
     staleTime: 10_000,
   });

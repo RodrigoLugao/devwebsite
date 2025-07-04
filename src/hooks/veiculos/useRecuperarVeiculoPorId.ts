@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import Veiculo from "../interfaces/Veiculo";
+import Veiculo from "../../interfaces/Veiculo";
 
-const useRecuperarVeiculoPorId = (id: number) => {
+const useRecuperarVeiculoPorId = (id?: number) => {
   const recuperarVeiculoPorId = async (id: number) => {
     const response = await fetch("http://localhost:8080/veiculos/" + id);
     if (!response.ok) {
@@ -14,9 +14,10 @@ const useRecuperarVeiculoPorId = (id: number) => {
   };
 
   return useQuery({
-    queryKey: ["veiculos", id],
-    queryFn: () => recuperarVeiculoPorId(id),
+    queryKey: ["veiculos", {id: id}],
+    queryFn: () => recuperarVeiculoPorId(id!),
     staleTime: 10_000,
+    enabled: !!id
   });
 };
 export default useRecuperarVeiculoPorId;

@@ -1,4 +1,4 @@
-import CategoriaPeca from "../interfaces/CategoriaPeca";
+/* import CategoriaPeca from "../interfaces/CategoriaPeca";
 
 export const CategoriaPecas: CategoriaPeca[] = [
     {
@@ -45,4 +45,4 @@ export const CategoriaPecas: CategoriaPeca[] = [
     }
 ];
 
-export default CategoriaPecas;
+export default CategoriaPecas; */

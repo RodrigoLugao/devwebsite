@@ -1,45 +1,44 @@
 import { Link } from "react-router-dom";
 import Peca from "../interfaces/Peca";
-import { PecaCarrinho } from "../store/carrinhoStore";
-import { useState, useEffect, useRef } from "react";
+import { PecaCarrinho, useCarrinhoStore } from "../store/carrinhoStore";
+import { useState, useEffect, useRef, ReactNode } from "react";
 
 interface Props {
   pecas: Peca[];
-  pecasDoCarrinho: PecaCarrinho[];
-  tratarRemocao: (id: number) => void;
-  onUpdateQuantidade: (pecaId: number, novaQuantidade: number) => void;
+  showTotalPrice?: boolean;
+  showOnlyCartItems?: boolean;
+  tratarDesfavoritar?: (id: number) => void;
 }
 
 const TabelaDePecasDoCarrinho = ({
   pecas,
-  pecasDoCarrinho,
-  tratarRemocao,
-  onUpdateQuantidade,
+  showTotalPrice = true,
+  showOnlyCartItems = true,
+  tratarDesfavoritar,
 }: Props) => {
+  const carrinhoItens = useCarrinhoStore((state) => state.itens);
+  const setQuantidadeAction = useCarrinhoStore((state) => state.setQuantidade);
+  const removerPecaAction = useCarrinhoStore((state) => state.removerPeca);
+  const adicionarPecaAction = useCarrinhoStore((state) => state.adicionarItem);
+
   const imagemPadrao = new URL(
     "../assets/images/pecaplaceholder.jpg",
     import.meta.url
   ).href;
 
-  // Mapa de refs para cada input, usando o ID da peça como chave
   const inputRefs = useRef<{ [key: number]: HTMLInputElement | null }>({});
 
-  // Estado local para gerenciar os valores dos inputs de quantidade enquanto o usuário digita
-  // Isso é necessário porque o estado do Zustand pode não ser atualizado imediatamente
-  // ou pode ter um valor "corrigido" (como 0) que você não quer ver enquanto o usuário digita.
   const [localInputValues, setLocalInputValues] = useState<{
     [key: number]: string;
   }>({});
 
-  // Efeito para sincronizar os valores locais dos inputs com os valores do carrinho (Zustand)
-  // Isso é importante quando o carrinho é carregado ou alterado de forma externa (ex: remoção de item)
   useEffect(() => {
     const newLocalValues: { [key: number]: string } = {};
-    pecasDoCarrinho.forEach((item) => {
+    carrinhoItens.forEach((item) => {
       newLocalValues[item.idPeca] = item.quantidade.toString();
     });
     setLocalInputValues(newLocalValues);
-  }, [pecasDoCarrinho]);
+  }, [carrinhoItens]);
 
   const handleImageError = (
     event: React.SyntheticEvent<HTMLImageElement, Event>
@@ -58,24 +57,50 @@ const TabelaDePecasDoCarrinho = ({
     }));
 
     const parsedValue = parseInt(value, 10);
+    const itemNoCarrinho = carrinhoItens.find((item) => item.idPeca === pecaId);
+    const quantidadeAtualNoCarrinho = itemNoCarrinho?.quantidade || 0;
+    const pecaOriginal = pecas.find((p) => p.id === pecaId);
 
     if (value === "") {
     } else if (!isNaN(parsedValue) && parsedValue >= 0) {
-      onUpdateQuantidade(pecaId, parsedValue); 
+      if (quantidadeAtualNoCarrinho === 0 && parsedValue > 0 && pecaOriginal) {
+        adicionarPecaAction(pecaOriginal.id!);
+        setQuantidadeAction(pecaId, parsedValue);
+      } else if (parsedValue === 0) {
+        removerPecaAction(pecaId);
+      } else {
+        setQuantidadeAction(pecaId, parsedValue);
+      }
     }
   };
 
-  const handleOnBlur = (pecaId: number, e: React.FocusEvent<HTMLInputElement>) => {
+  const handleOnBlur = (
+    pecaId: number,
+    e: React.FocusEvent<HTMLInputElement>
+  ) => {
     const value = e.target.value;
     let finalValue = parseInt(value, 10);
 
-    // Se o valor for NaN ou negativo
+    const quantidadeInicial =
+      carrinhoItens.find((item) => item.idPeca === pecaId)?.quantidade || 0;
+
     if (isNaN(finalValue) || finalValue < 0) {
-      inputRefs.current[pecaId]?.focus();
+      setLocalInputValues((prev) => ({
+        ...prev,
+        [pecaId]: quantidadeInicial.toString(), // Reverte para o valor válido anterior
+      }));
+      setTimeout(() => {
+        if (inputRefs.current[pecaId]) {
+          inputRefs.current[pecaId]?.focus();
+        }
+      }, 0);
     } else {
-      const quantidadeInicial = pecasDoCarrinho.find(item => item.idPeca === pecaId)?.quantidade || 0;
-      if (finalValue !== quantidadeInicial) {
-        onUpdateQuantidade(pecaId, finalValue);
+      const quantidadeInicial =
+        carrinhoItens.find((item) => item.idPeca === pecaId)?.quantidade || 0;
+      if (finalValue === 0 && quantidadeInicial > 0) {
+        removerPecaAction(pecaId);
+      } else if (finalValue !== quantidadeInicial) {
+        setQuantidadeAction(pecaId, finalValue);
       }
       setLocalInputValues((prev) => ({
         ...prev,
@@ -83,6 +108,14 @@ const TabelaDePecasDoCarrinho = ({
       }));
     }
   };
+
+  const handleRemocaoPeca = (id: number) => {
+    removerPecaAction(id);
+  };
+
+  const pecasARenderizar = showOnlyCartItems
+    ? pecas.filter((p) => carrinhoItens.some((item) => item.idPeca === p.id))
+    : pecas;
 
   return (
     <div className="table-responsive">
@@ -94,17 +127,16 @@ const TabelaDePecasDoCarrinho = ({
             <th className="text-center align-middle">Preço Unitário</th>
             <th className="text-center align-middle">Quantidade</th>
             <th className="text-center align-middle">Preço Total</th>
-            <th className="text-center align-middle">Remover</th>
+            <th className="text-center align-middle">Ação</th>
           </tr>
         </thead>
         <tbody>
-          {pecas.map((peca) => {
-            const itemNoCarrinho = pecasDoCarrinho.find(
+          {pecasARenderizar.map((peca) => {
+            const itemNoCarrinho = carrinhoItens.find(
               (item) => item.idPeca === peca.id
             );
             const qtdPecaNoCarrinho = itemNoCarrinho?.quantidade || 0;
 
-            // Obtém o valor do input do estado local, ou usa a quantidade do carrinho como fallback
             const currentInputValue =
               localInputValues[peca.id!] !== undefined
                 ? localInputValues[peca.id!]
@@ -144,7 +176,7 @@ const TabelaDePecasDoCarrinho = ({
                     }}
                     min="0"
                     step={1}
-                    value={currentInputValue} 
+                    value={currentInputValue}
                     onInput={(e) => handleInputChange(peca.id!, e)}
                     onBlur={(e) => handleOnBlur(peca.id!, e)}
                     className="form-control text-center mx-auto"
@@ -160,48 +192,72 @@ const TabelaDePecasDoCarrinho = ({
                   })}
                 </td>
                 <td className="text-center align-middle">
-                  <button
-                    onClick={() => tratarRemocao(peca.id!)}
-                    className="btn btn-danger btn-sm"
-                    type="button"
-                  >
-                    Remover
-                  </button>
+                  {qtdPecaNoCarrinho > 0 && (
+                    <button
+                      onClick={() => handleRemocaoPeca(peca.id!)}
+                      className="btn btn-danger btn-sm me-2"
+                      type="button"
+                    >
+                      Remover do Carrinho
+                    </button>
+                  )}
+                  {qtdPecaNoCarrinho <= 0 && (
+                    <button
+                      onClick={() => adicionarPecaAction(peca.id!)}
+                      className="btn btn-primary btn-sm me-2"
+                      type="button"
+                    >
+                      Adicionar ao Carrinho
+                    </button>
+                  )}
+                  {tratarDesfavoritar !== undefined && (
+                    <button
+                      onClick={() => tratarDesfavoritar(peca.id!)}
+                      className="btn btn-danger btn-sm me-2"
+                      type="button"
+                    >
+                      Desfavoritar
+                    </button>
+                  )}
                 </td>
               </tr>
             );
           })}
         </tbody>
-        <tfoot>
-          <tr>
-            <td className="ps-3 fw-bold" colSpan={4}>
-              Total do Carrinho
-            </td>
-            <td className="text-end align-middle pe-3 fw-bold" colSpan={1}>
-              R${" "}
-              {pecasDoCarrinho
-                .reduce((total, itemCarrinho) => {
-                  const pecaOriginal = pecas.find(
-                    (p) => p.id === itemCarrinho.idPeca
-                  );
-                  return (
-                    total +
-                    (pecaOriginal
-                      ? pecaOriginal.preco * itemCarrinho.quantidade
-                      : 0)
-                  );
-                }, 0)
-                .toLocaleString("pt-BR", {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                  useGrouping: true,
-                })}
-            </td>
-            <td></td>
-          </tr>
-        </tfoot>
+
+        {showTotalPrice && (
+          <tfoot>
+            <tr>
+              <td className="ps-3 fw-bold" colSpan={4}>
+                Total do Carrinho
+              </td>
+              <td className="text-end align-middle pe-3 fw-bold" colSpan={1}>
+                R${" "}
+                {carrinhoItens
+                  .reduce((total, itemCarrinho) => {
+                    const pecaOriginal = pecas.find(
+                      (p) => p.id === itemCarrinho.idPeca
+                    );
+                    return (
+                      total +
+                      (pecaOriginal
+                        ? pecaOriginal.preco * itemCarrinho.quantidade
+                        : 0)
+                    );
+                  }, 0)
+                  .toLocaleString("pt-BR", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                    useGrouping: true,
+                  })}
+              </td>
+              <td></td>
+            </tr>
+          </tfoot>
+        )}
       </table>
     </div>
   );
 };
+
 export default TabelaDePecasDoCarrinho;

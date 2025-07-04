@@ -1,16 +1,21 @@
-import { useState } from "react";
+import { Outlet, useParams, useNavigate } from "react-router-dom";
 import Breadcrumbs from "../components/Breadcrumbs";
 import ListaCategoriasPeca from "../components/ListaCategoriasPeca";
-import { Outlet } from "react-router-dom";
 
 const PecasPage = () => {
-  const [categoriaSelecionada, setCategoriaSelecionada] = useState<
-    string | null
-  >(null);
+  const { slugCategoria } = useParams<{ slugCategoria?: string }>();
+  const navigate = useNavigate();
 
-  // Esta função será passada para ListaCategoriasPeca
-  const handleCategoriaSelecionada = (nomeCategoria: string | null) => {
-    setCategoriaSelecionada(nomeCategoria);
+  //Categoria para ser exibida no Título, vinda da url
+  const categoriaExibidaTitulo = slugCategoria || null;
+
+  // Navega pelas categorias, mudando a url
+  const handleCategoriaSelecionada = (slugNomeCategoria: string | null) => {
+    if (slugNomeCategoria) {
+      navigate(`/pecas/categoria/${slugNomeCategoria}`);
+    } else {
+      navigate(`/pecas`); // Rota base para todas as peças
+    }
   };
 
   return (
@@ -21,12 +26,13 @@ const PecasPage = () => {
       <p className="h5">Categorias:</p>
       <ListaCategoriasPeca
         onCategoriaSelecionada={handleCategoriaSelecionada}
+        categoriaAtual={slugCategoria} 
       />
 
       <p className="h5">
-        {categoriaSelecionada !== null ? (
+        {categoriaExibidaTitulo !== null ? (
           <>
-            Peças da Categoria <strong>{categoriaSelecionada}</strong>:
+            Peças da Categoria <strong>{categoriaExibidaTitulo}</strong>:
           </>
         ) : (
           <>Todas as Peças:</>

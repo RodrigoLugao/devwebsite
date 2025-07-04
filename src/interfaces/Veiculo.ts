@@ -11,5 +11,6 @@ interface Veiculo{
     cor?: string;
     vendido: boolean;
     informacoes?: string;
+    dataCadastro: Date;
 }
 export default Veiculo;
