@@ -58,7 +58,7 @@ const ListaPecas = () => {
   };
 
   const openExcluirModal = (peca: Peca) => {
-    resetRemoverMutation(); 
+    resetRemoverMutation();
     setModalState({ show: true, peca: peca });
   };
 
@@ -85,7 +85,8 @@ const ListaPecas = () => {
     return (
       <div className="row mb-5">
         <p className="text-danger text-center">
-          Erro ao remover peça: {apiError.message || "Ocorreu um erro inesperado."}
+          Erro ao remover peça:{" "}
+          {apiError.message || "Ocorreu um erro inesperado."}
         </p>
         <button className="btn btn-primary mt-3" onClick={resetRemoverMutation}>
           Tentar Novamente
@@ -149,33 +150,42 @@ const ListaPecas = () => {
           onChangePagina={setCurrentPage}
         />
 
-        {pecasExibidas.map((peca) => {
-          const pecaNoCarrinho =
-            carrinho.find((item) => item.idPeca === peca.id) || null;
+        {pecasExibidas.map((peca, i) => {
+          try {
+            const pecaNoCarrinho =
+              carrinho.find((item) => item.idPeca === peca.id) || null;
 
-          const isFavorito =
-            pecasFavoritas?.some(
-              (favPeca: PecaFavoritaPayloadDTO) => favPeca.pecaId === peca.id
-            ) || false;
+            const isFavorito =
+              pecasFavoritas?.some(
+                (favPeca: PecaFavoritaPayloadDTO) => favPeca.pecaId === peca.id
+              ) || false;
 
-          return (
-            <div
-              key={peca.id}
-              className="col-lg-4 col-md-6 col-sm-6 col-12 mb-3"
-            >
-              <CardPeca
-                peca={peca}
-                adicionarPeca={adicionarPeca}
-                showFavorito={isAuthenticated && !errorPecasFavoritas}
-                isFavorito={isFavorito}
-                isAdmin={isAdmin}
-                subtrairPeca={subtrairPeca}
-                pecaNoCarrinho={pecaNoCarrinho}
-                isCarregando={isLoadingPecasFavoritas}
-                excluirPeca={openExcluirModal} // Usar a função que abre o modal
-              />
-            </div>
-          );
+            return (
+              <div
+                key={peca.id}
+                className="col-lg-4 col-md-6 col-sm-6 col-12 mb-3"
+              >
+                <CardPeca
+                  peca={peca}
+                  adicionarPeca={adicionarPeca}
+                  showFavorito={isAuthenticated && !errorPecasFavoritas}
+                  isFavorito={isFavorito}
+                  isAdmin={isAdmin}
+                  subtrairPeca={subtrairPeca}
+                  pecaNoCarrinho={pecaNoCarrinho}
+                  isCarregando={isLoadingPecasFavoritas}
+                  excluirPeca={openExcluirModal}
+                />
+              </div>
+            );
+          } catch (error) {
+            console.error(
+              `Erro ao renderizar peça no índice ${i}`,
+              peca,
+              error
+            );
+            return null;
+          }
         })}
       </div>
 

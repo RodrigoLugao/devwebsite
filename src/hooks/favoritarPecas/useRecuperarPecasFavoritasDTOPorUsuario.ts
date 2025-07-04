@@ -29,7 +29,7 @@ export const useRecuperarPecasFavoritasDTO = (usuarioId?: number) => {
   };
 
   return useQuery<PecaFavoritaResponseDTO[]>({
-    queryKey: ["pecasFavoritasDTO", {usuarioId: usuarioId}],
+    queryKey: ["pecas-favoritas", {usuarioId: usuarioId}],
     queryFn: recuperarPecasFavoritasDTO,
     staleTime: 10_000,
     enabled: !!usuarioId

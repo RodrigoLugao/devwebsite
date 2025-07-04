@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Peca from "../../interfaces/Peca";
 import ErrorResponse from "../../interfaces/ErrorResponse";
+import { useCarrinhoStore } from "../../store/carrinhoStore";
 
 const API_BASE_URL = "http://localhost:8080/pecas";
 
@@ -43,20 +44,14 @@ const removerPeca = async (
 
 const useRemoverPeca = () => {
   const queryClient = useQueryClient();
+  const removerPecaDoCarrinho = useCarrinhoStore((state) => state.removerPeca);
   return useMutation<null, ErrorResponse, Peca>({
     mutationFn: (peca) => removerPeca(peca),
-    onSuccess: () => {
+    onSuccess: (_, peca) => {
+      peca.id ? removerPecaDoCarrinho(peca.id) : {};
       queryClient.invalidateQueries({
         queryKey: ["pecas"],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["pecas-por-slug"],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["pecas-por-ids"],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["pecas-favoritas"],
+        exact: false
       });
     },
   });

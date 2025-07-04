@@ -50,6 +50,7 @@ const useCadastrarPeca = () => {
       console.log(`Peça ${novaPeca.id} cadastrada com sucesso.`);
       queryClient.invalidateQueries({
         queryKey: ["pecas"],
+        exact: false
       });
     },
   });

@@ -50,6 +50,7 @@ const useAlterarPeca = () => {
       console.log(`Peça ${novaPeca.id} alterada com sucesso.`);
       queryClient.invalidateQueries({
         queryKey: ["pecas"],
+        exact: false
       });
     },
   });

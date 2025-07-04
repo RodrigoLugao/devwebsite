@@ -40,7 +40,7 @@ const useRecuperarPecaFavoritaPorIds = (usuarioId?: number, pecaId?: number) => 
   };
 
   return useQuery({
-    queryKey: ["pecasFavoritasDTO", { usuarioId: usuarioId}, {pecaId: pecaId }],
+    queryKey: ["pecas-favoritas-DTO", { usuarioId: usuarioId}, {pecaId: pecaId }],
     queryFn: () => recuperarPecaFavoritaPorIds(usuarioId!, pecaId!),
     staleTime: 10_000,
     enabled: !!usuarioId && !!pecaId,

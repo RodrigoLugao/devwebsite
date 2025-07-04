@@ -55,13 +55,24 @@ const useDesfavoritarPeca = () => {
   }
   return useMutation<void, Error, number>({
     mutationFn: (pecaId) => desfavoritarPeca(pecaId, usuario),
-    onSuccess: (_, pecaId) => {
-      console.log(`Peça ${pecaId} desfavoritada com sucesso.`);
+    onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["pecas", { usuarioId: usuario.id }],
+        queryKey: ["pecas"],
       });
       queryClient.invalidateQueries({
-        queryKey: ["pecasFavoritasDTO", {usuarioId: usuario.id}],
+        queryKey: ["pecas-por-slug"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["pecas-por-ids"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["pecas-favoritas"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["pecas-favoritas-DTO"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["pecas-favoritas-DTO-usuario"],
       });
     },
     onError: (error, pecaId) => {

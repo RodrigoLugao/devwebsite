@@ -36,7 +36,10 @@ const useRecuperarPecasFavoritasComPaginacao = (
   };
 
   return useQuery<Page<Peca>, Error>({
-    queryKey: ["pecas-favoritas", {usuarioId: usuarioId}, pageable],
+    queryKey: ["pecas", "pecas-favoritas-com-paginacao", {usuarioId: usuarioId}, pageable.pagina,
+      pageable.itensPorPagina,
+      pageable.ordem,
+      pageable.ordenarPor,],
     queryFn: () => recuperarPecasFavoritasComPaginacao(),
     staleTime: 1000 * 60 * 5,
     enabled: !!usuarioId

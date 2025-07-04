@@ -11,7 +11,7 @@ const useRecuperarPecasPorIdsComPaginacao = (
     if (!ids || ids.length === 0) {
       return {
         itens: [],
-        paginaAtual: 0, 
+        paginaAtual: 0,
         totalPaginas: 0,
         totalItens: 0,
       };
@@ -19,14 +19,17 @@ const useRecuperarPecasPorIdsComPaginacao = (
 
     const url = new URL("http://localhost:8080/pecas/ids");
 
-    ids.forEach((id: number) =>{
-      url.searchParams.append("ids", ""+id);
+    ids.forEach((id: number) => {
+      url.searchParams.append("ids", "" + id);
     });
 
-    if(pageable.itensPorPagina) url.searchParams.append("size", pageable.itensPorPagina.toString());
-    if(pageable.pagina) url.searchParams.append("page", pageable.pagina.toString());
-    const sortString = pageable.ordenarPor + (pageable.ordem? "," + pageable.ordem: "");
-    if(pageable.ordenarPor) url.searchParams.append("sort", sortString);
+    if (pageable.itensPorPagina)
+      url.searchParams.append("size", pageable.itensPorPagina.toString());
+    if (pageable.pagina)
+      url.searchParams.append("page", pageable.pagina.toString());
+    const sortString =
+      pageable.ordenarPor + (pageable.ordem ? "," + pageable.ordem : "");
+    if (pageable.ordenarPor) url.searchParams.append("sort", sortString);
 
     const response = await fetch(url.toString(), {
       method: "GET",
@@ -36,19 +39,32 @@ const useRecuperarPecasPorIdsComPaginacao = (
     });
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({ message: "Erro desconhecido." }));
-      throw new Error(errorData.message || `Erro ao carregar peças: ${response.status} ${response.statusText}`);
+      const errorData = await response
+        .json()
+        .catch(() => ({ message: "Erro desconhecido." }));
+      throw new Error(
+        errorData.message ||
+          `Erro ao carregar peças: ${response.status} ${response.statusText}`
+      );
     }
 
     return response.json();
   };
 
   return useQuery<Page<Peca>, Error>({
-    queryKey: ["pecas-por-ids", "carrinho", ids , pageable],
+    queryKey: [
+      "pecas",
+      "pecas-por-ids",
+      "carrinho",
+      ids?.slice().sort().join(","),
+      pageable.pagina,
+      pageable.itensPorPagina,
+      pageable.ordem,
+      pageable.ordenarPor,
+    ],
     queryFn: recuperarPecasPorIdsComPaginacao,
     staleTime: 1000 * 60 * 60,
-    enabled: ids&&ids.length > 0,
-    
+    enabled: ids && ids.length > 0,
   });
 };
 
