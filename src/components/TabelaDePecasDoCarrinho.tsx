@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Peca from "../interfaces/Peca";
-import { PecaCarrinho, useCarrinhoStore } from "../store/carrinhoStore";
-import { useState, useEffect, useRef, ReactNode } from "react";
+import { useCarrinhoStore } from "../store/carrinhoStore";
+import { useState, useEffect, useRef } from "react";
 
 interface Props {
   pecas: Peca[];

@@ -1,5 +1,3 @@
-// src/components/ListaVeiculos.tsx
-
 import { useState, useEffect } from "react";
 import CardVeiculo from "./CardVeiculo";
 import { FiltroVeiculo } from "../interfaces/FiltroVeiculo";

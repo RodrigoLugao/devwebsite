@@ -21,7 +21,6 @@ const CardPeca = ({
   pecaNoCarrinho,
   showFavorito = false,
   isFavorito = false,
-  isCarregando = false,
   isAdmin = false,
   adicionarPeca,
   subtrairPeca,

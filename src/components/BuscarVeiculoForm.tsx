@@ -10,7 +10,7 @@ interface BuscarVeiculoFormProps {
 }
 
 const BuscarVeiculoForm = ({ onSearch, initialValues }: BuscarVeiculoFormProps) => {
-  const { register, handleSubmit, reset, watch, formState: { errors } } = useForm<FiltroVeiculo>({
+  const { register, handleSubmit, reset, watch, } = useForm<FiltroVeiculo>({
     defaultValues: initialValues, 
   });
 

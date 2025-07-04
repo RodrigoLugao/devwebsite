@@ -2,13 +2,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'; // Importe 
 import { useUsuarioStore } from '../../store/usuarioStore';
 import Usuario from '../../interfaces/Usuario'; // Certifique-se de que esta interface está correta
 
-interface LoginApiResponse {
-  id: number;
-  nome: string;
-  isAdmin: boolean;
-  token: string;
-}
-
 interface Credenciais {
   username: string;
   password: string;
@@ -16,7 +9,7 @@ interface Credenciais {
 
 const API_LOGIN_URL = "http://localhost:8080/auth/login";
 
-const performLogin = async (credenciais: Credenciais): Promise<LoginApiResponse> => {
+const performLogin = async (credenciais: Credenciais): Promise<Usuario> => {
   const response = await fetch(API_LOGIN_URL, {
     method: "POST",
     headers: {
@@ -38,19 +31,14 @@ const useLogin = () => {
   const loginAction = useUsuarioStore(state => state.login); 
 
 
-  return useMutation<LoginApiResponse, Error, Credenciais>({
+  return useMutation<Usuario, Error, Credenciais>({
     mutationFn: performLogin, 
 
     onSuccess: (data) => {
 
       console.log("Login bem-sucedido:", data);
 
-      const usuarioLogado: Usuario = {
-        id: data.id,
-        nome: data.nome,
-        isAdmin: data.isAdmin,
-        token: data.token,
-      };
+      const usuarioLogado: Usuario = data;
 
       loginAction(usuarioLogado); 
 

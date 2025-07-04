@@ -1,5 +1,3 @@
-// src/components/ListaVeiculos.tsx
-
 import { useState, useEffect } from "react";
 import useRecuperarVeiculosComPaginacao from "../hooks/veiculos/useRecuperarVeiculosComPaginacao";
 import CardVeiculo from "./CardVeiculo";

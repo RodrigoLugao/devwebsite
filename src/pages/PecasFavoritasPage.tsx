@@ -21,7 +21,7 @@ const PecasFavoritasPage = () => {
     itensPorPagina: pecasPorPagina,
   });
 
-  const { mutate: desfavoritarPeca, error: errorDesfavoritarPeca } =
+  const { mutate: desfavoritarPeca } =
     useDesfavoritarPeca();
 
   const totalPaginas = pagePecas ? pagePecas.totalPaginas : 0;

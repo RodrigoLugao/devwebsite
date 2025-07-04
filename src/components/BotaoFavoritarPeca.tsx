@@ -8,7 +8,7 @@ interface Props {
 
 const BotaoFavoritarPeca = ({isFavorito, pecaId}: Props) => {
 
-    const { mutate: desfavoritarPeca, error: errorDesfavoritarPeca, isPending: isPendingDesfavoritar } =
+    const { mutate: desfavoritarPeca, isPending: isPendingDesfavoritar } =
     useDesfavoritarPeca();
 
     const tratarDesfavoritar = () => {
@@ -16,7 +16,7 @@ const BotaoFavoritarPeca = ({isFavorito, pecaId}: Props) => {
         desfavoritarPeca(pecaId);
     };
 
-    const { mutate: favoritarPeca, error: errorFavoritarPeca, isPending: isPendingFavoritar } =
+    const { mutate: favoritarPeca, isPending: isPendingFavoritar } =
     useFavoritarPeca();
 
     const tratarFavoritar = () => {
